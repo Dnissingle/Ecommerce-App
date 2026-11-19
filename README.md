@@ -1,74 +1,69 @@
 # Grocery App
 
-A modern, responsive E-commerce Grocery application built with Flutter using GetX for state management.
+A responsive grocery shopping app built with Flutter and GetX. Product and category
+catalogs, guest carts, customer accounts, stock, and orders are stored in Supabase.
 
-## 🚀 Features
+## Features
 
-- **Responsive UI**: Optimized for different screen sizes using `flutter_screenutil`.
-- **Theme Switching**: Smooth dark and light mode transitions.
-- **State Management**: Robust and efficient state handling using `GetX`.
-- **Carousel Banners**: Attractive image sliders for promotions.
-- **Product Categories**: Easy navigation through different grocery categories.
-- **Best Selling Products**: Featured products grid.
-- **Animations**: Subtle and engaging animations using `flutter_animate`.
-- **Custom Fonts**: Beautiful typography using Poppins and Cairo.
+- Responsive layouts, light/dark themes, and English/Arabic translations
+- Supabase-backed catalog with search and category filters
+- Persistent, per-customer carts and stock-aware checkout
+- Email/password customer accounts and order history
+- Atomic order creation with delivery address, phone, and cash-on-delivery status
 
-## 🛠 Tech Stack
+## Tech stack
 
-- **Framework**: [Flutter](https://flutter.dev/)
-- **State Management**: [GetX](https://pub.dev/packages/get)
-- **UI Utilities**:
-    - `flutter_screenutil` (Responsiveness)
-    - `flutter_svg` (Vector graphics)
-    - `carousel_slider` (Image sliders)
-    - `badges` (Notification/Cart badges)
-- **Local Storage**: `shared_preferences`
+- Flutter and GetX
+- Supabase Auth and Postgres with row-level security
+- `flutter_screenutil`, `flutter_svg`, `carousel_slider`, and `flutter_animate`
+- `shared_preferences` for local theme and language preferences
 
-## 📦 Project Structure
+## Project structure
 
-The project follows a modular structure (GetX Pattern):
 ```text
 lib/
 ├── app/
 │   ├── components/       # Reusable UI widgets
-│   ├── modules/          # Feature modules (Home, etc.)
-│   │   ├── controllers/  # Business logic
-│   │   ├── views/        # UI screens
-│   │   └── bindings/     # Dependency injection
+│   ├── data/
+│   │   ├── models/       # Category and product data models
+│   │   ├── repositories/ # Supabase catalog, cart, order, and auth access
+│   │   └── services/     # Supabase client initialization
+│   ├── modules/          # Feature screens, controllers, and bindings
 │   └── routes/           # App routing configuration
-├── config/               # App configuration and themes
-├── utils/                # Constants and helper functions
+├── config/               # Themes and translations
 └── main.dart             # Entry point
+supabase/
+└── migrations/           # Store schema, RLS policies, checkout RPC, seed data
 ```
 
-## ⚙️ Getting Started
+## Supabase setup
 
-### Prerequisites
-- Flutter SDK (>= 3.0.0)
-- Android Studio / VS Code
+1. Create a Supabase project and open its SQL Editor.
+2. Run `supabase/migrations/20261119134500_store_schema.sql`.
+3. In Supabase Authentication settings, enable **Anonymous Sign-Ins** and
+   email/password authentication. Anonymous sessions support guest carts; customers
+   can create an email/password account from the Profile tab.
+4. Install dependencies:
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/grocery-app.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd grocery-app
-   ```
-3. Install dependencies:
    ```bash
    flutter pub get
    ```
-4. Run the app:
+
+5. Run the app with your project URL and public anon/publishable key:
+
    ```bash
-   flutter run
+   flutter run --dart-define=SUPABASE_URL=https://YOUR_PROJECT.supabase.co --dart-define=SUPABASE_PUBLISHABLE_KEY=YOUR_PUBLIC_PUBLISHABLE_KEY
    ```
 
-## 🎨 Assets
-- **Images**: Located in `assets/images/`
-- **Vectors**: SVG icons in `assets/vectors/`
-- **Fonts**: Poppins and Cairo in `assets/fonts/`
+Use only the project URL and public anon/publishable key. Never put a Supabase
+`service_role` key in a Flutter app. If either compile-time value is missing, the app
+shows a setup error rather than silently using demo data.
 
-## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+The migration seeds the sample products and categories. Their `image_path` values
+refer to bundled assets; public HTTPS image URLs are also supported.
+
+## Assets
+
+- Images: `assets/images/`
+- SVG vectors: `assets/vectors/`
+- Fonts: `assets/fonts/`
