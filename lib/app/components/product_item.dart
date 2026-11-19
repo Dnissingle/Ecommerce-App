@@ -5,13 +5,11 @@ import 'package:get/get.dart';
 
 import '../data/models/product_model.dart';
 import '../routes/app_pages.dart';
+import 'store_image.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductModel product;
-  const ProductItem({
-    super.key,
-    required this.product
-  });
+  const ProductItem({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +27,8 @@ class ProductItem extends StatelessWidget {
               right: 12.w,
               bottom: 12.h,
               child: GestureDetector(
-                onTap: () => Get.toNamed(
-                  Routes.productDetails, arguments: product
-                ),
+                onTap: () =>
+                    Get.toNamed(Routes.productDetails, arguments: product),
                 child: CircleAvatar(
                   radius: 18.r,
                   backgroundColor: theme.primaryColor,
@@ -43,10 +40,11 @@ class ProductItem extends StatelessWidget {
               top: 22.h,
               left: 26.w,
               right: 25.w,
-              child: Image.asset(product.image).animate().slideX(
-                duration: 200.ms,
-                begin: 1, curve: Curves.easeInSine,
-              ),
+              child: StoreImage(source: product.image).animate().slideX(
+                    duration: 200.ms,
+                    begin: 1,
+                    curve: Curves.easeInSine,
+                  ),
             ),
             Positioned(
               left: 16.w,
@@ -55,20 +53,24 @@ class ProductItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(product.name, style: theme.textTheme.titleLarge)
-                    .animate().fade().slideY(
-                      duration: 200.ms,
-                      begin: 1, curve: Curves.easeInSine,
-                    ),
+                      .animate()
+                      .fade()
+                      .slideY(
+                        duration: 200.ms,
+                        begin: 1,
+                        curve: Curves.easeInSine,
+                      ),
                   5.verticalSpace,
                   Text(
-                    '1kg, ${product.price}\$',
+                    '${product.unit}, ${product.price.toStringAsFixed(2)}\$',
                     style: theme.textTheme.headlineMedium?.copyWith(
                       color: theme.colorScheme.secondary,
                     ),
                   ).animate().fade().slideY(
-                    duration: 200.ms,
-                    begin: 2, curve: Curves.easeInSine,
-                  ),
+                        duration: 200.ms,
+                        begin: 2,
+                        curve: Curves.easeInSine,
+                      ),
                 ],
               ),
             ),

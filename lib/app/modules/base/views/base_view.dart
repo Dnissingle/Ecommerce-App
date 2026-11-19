@@ -56,7 +56,7 @@ class BaseView extends GetView<BaseController> {
               icon: Center(),
             ),
             _mBottomNavItem(
-              label: 'Calendar',
+              label: 'Orders',
               icon: Constants.calendarIcon,
             ),
             _mBottomNavItem(
@@ -70,7 +70,7 @@ class BaseView extends GetView<BaseController> {
         floatingActionButton: FloatingActionButton(
           elevation: 0.0,
           backgroundColor: Colors.transparent,
-          onPressed:() => Get.toNamed(Routes.cart),
+          onPressed: () => Get.toNamed(Routes.cart),
           child: GetBuilder<BaseController>(
             id: 'CartBadge',
             builder: (_) => badges.Badge(
@@ -91,7 +91,8 @@ class BaseView extends GetView<BaseController> {
                 radius: 22.r,
                 backgroundColor: theme.primaryColor,
                 child: SvgPicture.asset(
-                  Constants.cartIcon, fit: BoxFit.none,
+                  Constants.cartIcon,
+                  fit: BoxFit.none,
                 ),
               ),
             ),
@@ -120,5 +121,4 @@ class BaseView extends GetView<BaseController> {
       ),
     );
   }
-
 }

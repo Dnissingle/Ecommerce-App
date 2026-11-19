@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../components/product_count_item.dart';
+import '../../../../components/store_image.dart';
 import '../../../../data/models/product_model.dart';
 import '../../controllers/cart_controller.dart';
 
@@ -21,7 +22,7 @@ class CartItem extends GetView<CartController> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(product.image, width: 50.w, height: 40.h),
+          StoreImage(source: product.image, width: 50.w, height: 40.h),
           16.horizontalSpace,
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +30,7 @@ class CartItem extends GetView<CartController> {
               Text(product.name, style: theme.textTheme.headlineMedium),
               5.verticalSpace,
               Text(
-                '1kg, ${product.price}\$',
+                '${product.unit}, ${product.price.toStringAsFixed(2)}\$',
                 style: theme.textTheme.headlineMedium?.copyWith(
                   color: theme.colorScheme.secondary,
                 ),

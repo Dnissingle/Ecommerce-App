@@ -17,6 +17,7 @@ dependencies:
   carousel_slider: ^5.0.0 # for image slider - updated to fix CarouselController conflict
   badges: ^3.1.2 # for badges
   flutter_animate: ^4.5.0 # for animation
+  supabase_flutter: ^2.8.4
 
   flutter: 
     sdk: flutter

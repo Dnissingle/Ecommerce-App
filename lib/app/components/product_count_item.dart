@@ -10,10 +10,7 @@ import 'custom_icon_button.dart';
 
 class ProductCountItem extends GetView<BaseController> {
   final ProductModel product;
-  const ProductCountItem({
-    super.key,
-    required this.product
-  });
+  const ProductCountItem({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +35,7 @@ class ProductCountItem extends GetView<BaseController> {
         GetBuilder<BaseController>(
           id: 'ProductQuantity',
           builder: (_) => Text(
-            product.quantity.toString(),
+            controller.quantityFor(product.id).toString(),
             style: theme.textTheme.headlineLarge,
           ),
         ),
@@ -46,7 +43,10 @@ class ProductCountItem extends GetView<BaseController> {
         CustomIconButton(
           width: 36.w,
           height: 36.h,
-          onPressed: () => controller.onIncreasePressed(product.id),
+          onPressed: () => controller.onIncreasePressed(
+            product.id,
+            maxQuantity: product.stockQuantity,
+          ),
           icon: SvgPicture.asset(
             Constants.addIcon,
             fit: BoxFit.none,
